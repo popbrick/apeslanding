@@ -7,7 +7,7 @@ import IconTelegram from "../public/icon_telegram.png";
 
 export const Navbar = () => {
   return (
-    <nav className="sm:p-6 md:flex md:justify-between md:items-center">
+    <nav className="sm:p-6 md:flex md:justify-between md:items-center backdrop-blur-md sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
         <a href="/landingPage">
           <Image src={Logo} alt={"Logo"} />
