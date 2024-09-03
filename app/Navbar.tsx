@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import Logo from "../../public/logo.svg";
-import IconX from "../../public/icon_x.png";
-import IconTelegram from "../../public/icon_telegram.png";
+import Logo from "../public/logo.svg";
+import IconX from "../public/icon_x.png";
+import IconTelegram from "../public/icon_telegram.png";
 
 export const Navbar = () => {
   return (

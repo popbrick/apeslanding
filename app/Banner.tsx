@@ -1,5 +1,7 @@
-import Countdown from "./Countdown";
-import { inter, poppins } from "../fonts";
+"use client";
+
+import Countdown from "./components/Countdown";
+import { inter, poppins } from "./fonts";
 
 export const Banner = () => {
   const targetDate = "2024-09-31T23:59:59";
