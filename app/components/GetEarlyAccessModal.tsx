@@ -14,8 +14,8 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="relative w-[600px] overflow-y-auto h-[calc(100%-32px)] md:h-auto p-12 bg-[#37383c] rounded-[40px] border-4 border-white flex-col justify-center items-center gap-8 inline-flex">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
+      <div className="relative w-full max-w-[600px] h-full max-h-[calc(100%-32px)] md:h-auto md:max-h-auto p-4 md:p-12 bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-center items-center gap-8 overflow-y-auto">
         <Image
           src={IconBtnClose}
           alt="IconBtnClose"
