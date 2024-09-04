@@ -8,7 +8,7 @@ interface AnnouncementProps {
   backgroundImage: string;
   label: string;
   revealed: boolean;
-  onClick: () => void; 
+  onClick: () => void;
 }
 
 export const AnnouncementCard: React.FC<AnnouncementProps> = ({
@@ -16,11 +16,11 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = ({
   backgroundImage,
   label,
   revealed,
-  onClick
+  onClick,
 }) => {
   return (
     <div
-      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg cursor-pointer"
+      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg cursor-pointer overflow-hidden"
       onClick={onClick}
       style={{
         backgroundImage: `url(${
@@ -28,7 +28,12 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = ({
         })`,
       }}
     >
-      <div className="w-14 h-14 relative bg-white/20 rounded-full border-4 border-white/50 backdrop-blur-[50px] flex items-center justify-center">
+      <div
+        className={`absolute inset-0 bg-black opacity-50 ${
+          revealed ? `visible` : `hidden`
+        }`}
+      />
+      <div className="relative w-14 h-14 bg-white/20 rounded-full border-4 border-white/50 backdrop-blur-[50px] flex items-center justify-center">
         <div
           className={`text-center text-white text-[28px] font-bold ${poppins.className}`}
         >
