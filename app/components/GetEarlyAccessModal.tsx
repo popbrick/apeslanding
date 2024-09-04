@@ -1,6 +1,8 @@
 import Image from "next/image";
 import IconBtnClose from "../../public/icon-box-close.svg";
 import { poppins, inter } from "../fonts";
+import { useState } from "react";
+import axios from "axios";
 
 interface GetEarlyAccessModalProps {
   isOpen: boolean;
@@ -12,6 +14,32 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   onClose,
 }) => {
   if (!isOpen) return null;
+
+  const [walletAddress, setWalletAddress] = useState("");
+
+  const handleInputChange = (event: any) => {
+    setWalletAddress(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "https://vigilante.apescreener.xyz/api/register",
+        {
+          walletAddress,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setWalletAddress("")
+      console.log(response.data); // TODO For development purposes
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
@@ -48,9 +76,14 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           <input
             type="text"
             placeholder="Wallet address"
+            value={walletAddress}
+            onChange={handleInputChange}
             className={`h-14 px-6 py-4 bg-white/10 rounded-[500px] border border-white/20 text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${inter.className}`}
           />
-          <button className="w-full md:w-1/3 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex">
+          <button
+            onClick={handleSubmit}
+            className="w-full md:w-1/3 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex"
+          >
             <span
               className={`text-black text-base font-semibold ${inter.className} leading-snug`}
             >
