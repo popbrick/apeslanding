@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Navbar } from "./Navbar";
 import { Banner } from "./Banner";
 import BackgroundImage from "../public/background_image.png"
+import { Announcements } from "./Announcements";
 
 export default function Home() {
   return (
@@ -9,8 +10,7 @@ export default function Home() {
       {/* <Image src={BackgroundImage} alt="BackgroundImage" className="absolute z-0 w-full"/> */}
       <Navbar/>
       <Banner />
-      <Banner />
-      <Banner />
+      <Announcements />
     </main>
   );
 }
