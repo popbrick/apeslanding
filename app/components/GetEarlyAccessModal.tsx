@@ -14,69 +14,64 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="relative w-[600px] h-[630px] p-12 bg-[#37383c] rounded-[40px] border-4 border-white flex-col justify-center items-center gap-8 inline-flex">
-        {/* <div className="w-12 h-12 bg-white/10 rounded-[500px] justify-center items-center gap-2.5 inline-flex">
-          
-        </div> */}
+    <div className="fixed inset-0 z-50 p-4 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+      <div className="relative w-[600px] overflow-y-auto h-[calc(100%-32px)] md:h-auto p-12 bg-[#37383c] rounded-[40px] border-4 border-white flex-col justify-center items-center gap-8 inline-flex">
         <Image
           src={IconBtnClose}
           alt="IconBtnClose"
           className="absolute top-4 right-4"
           onClick={onClose}
         />
-        <div className="self-stretch h-20 flex-col justify-center items-center gap-2 flex">
+        <div className="flex-col justify-center items-center gap-2 flex">
           <div
-            className={`self-stretch text-center text-white text-[32px] font-semibold ${poppins.className}`}
+            className={`text-center text-white text-[32px] font-semibold ${poppins.className}`}
           >
             Welcome to Early Access
           </div>
           <div
-            className={`self-stretch text-center text-white/80 text-base font-normal leading-normal ${inter.className}`}
+            className={`text-center text-white/80 text-base font-normal leading-normal ${inter.className}`}
           >
             To participate, please provide your wallet address here:
           </div>
         </div>
-        <div className="self-stretch h-14 flex-col justify-start items-start gap-3 flex">
-          <div className="self-stretch justify-start items-center gap-4 inline-flex">
-            <div className="grow shrink basis-0 h-14 px-6 py-4 bg-white/10 rounded-[500px] border border-white/20 justify-start items-center gap-2.5 flex">
-              <div
-                className={`grow shrink basis-0 text-white/50 text-base font-normal ${inter.className}`}
-              >
-                Wallet address
-              </div>
-            </div>
-            <div className="w-32 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 flex">
-              <div
-                className={`text-black text-base font-semibold ${inter.className} leading-snug`}
-              >
-                Apply
-              </div>
-            </div>
-          </div>
+        <div className="flex flex-col md:flex-row justify-start items-start gap-3 w-full">
+          <input
+            type="text"
+            placeholder="Wallet address"
+            className={`h-14 px-6 py-4 bg-white/10 rounded-[500px] border border-white/20 text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${inter.className}`}
+          />
+
+          <button className="w-full md:w-1/3 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex">
+            <span
+              className={`text-black text-base font-semibold ${inter.className} leading-snug`}
+            >
+              Apply
+            </span>
+          </button>
         </div>
-        <div className="self-stretch h-[334px] flex-col justify-start items-start gap-6 flex">
-          <div className="self-stretch h-[310px] flex-col justify-start items-start gap-4 flex">
-            <div className="self-stretch h-[87px] flex-col justify-start items-start gap-3 flex">
+        <div className="h-[1px] w-full bg-white/10"></div>
+        <div className=" h-[334px] flex-col justify-start items-start gap-6 flex">
+          <div className=" h-[310px] flex-col justify-start items-start gap-4 flex">
+            <div className=" h-[87px] flex-col justify-start items-start gap-3 flex">
               <div
-                className={`self-stretch text-white text-lg font-medium ${poppins.className}`}
+                className={` text-white text-lg font-medium ${poppins.className}`}
               >
                 Rules
               </div>
               <div
-                className={`self-stretch text-white/80 text-base font-normal leading-normal ${inter.className}`}
+                className={` text-white/80 text-base font-normal leading-normal ${inter.className}`}
               >
                 Nominees for Early Access participation will be selected
                 randomly. The number of spots is limited.
               </div>
             </div>
-            <div className="self-stretch h-[143px] flex-col justify-start items-start gap-3 flex">
+            <div className=" h-[143px] flex-col justify-start items-start gap-3 flex">
               <div
-                className={`self-stretch text-white text-lg font-medium ${poppins.className}`}
+                className={` text-white text-lg font-medium ${poppins.className}`}
               >
                 Get a $APES Multiplier!
               </div>
-              <div className="self-stretch">
+              <div className="">
                 <span
                   className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
                 >
@@ -110,7 +105,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
               </div>
             </div>
             <div
-              className={`self-stretch text-white/80 text-base font-normal ${inter.className} leading-normal`}
+              className={` text-white/80 text-base font-normal ${inter.className} leading-normal`}
             >
               Follow our X account to find out if your wallet has been granted
               Early Access.
