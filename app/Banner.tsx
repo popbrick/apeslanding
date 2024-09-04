@@ -18,8 +18,8 @@ export const Banner = () => {
   };
 
   return (
-    <div className="px-10 py-20">
-      <div className="flex flex-col gap-y-12 items-center">
+    <section>
+      <div className="flex flex-col gap-y-12 items-center px-10 py-20">
         <div
           className={`${poppins.className} text-center text-white text-[38px] md:text-[88px] font-semibold leading-[38px] md:leading-[88px]`}
         >
@@ -36,7 +36,7 @@ export const Banner = () => {
         </div>
       </div>
       <GetEarlyAccessModal isOpen={isModalOpen} onClose={handleCloseModal} />
-    </div>
+    </section>
   );
 };
 
