@@ -50,66 +50,64 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           </button>
         </div>
         <div className="h-[1px] w-full bg-white/10"></div>
-        <div className=" h-[334px] flex-col justify-start items-start gap-6 flex">
-          <div className=" h-[310px] flex-col justify-start items-start gap-4 flex">
-            <div className=" h-[87px] flex-col justify-start items-start gap-3 flex">
-              <div
-                className={` text-white text-lg font-medium ${poppins.className}`}
-              >
-                Rules
-              </div>
-              <div
-                className={` text-white/80 text-base font-normal leading-normal ${inter.className}`}
-              >
-                Nominees for Early Access participation will be selected
-                randomly. The number of spots is limited.
-              </div>
-            </div>
-            <div className=" h-[143px] flex-col justify-start items-start gap-3 flex">
-              <div
-                className={` text-white text-lg font-medium ${poppins.className}`}
-              >
-                Get a $APES Multiplier!
-              </div>
-              <div className="">
-                <span
-                  className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-                >
-                  1. Wallets with{" "}
-                </span>
-                <span
-                  className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
-                >
-                  100,000 $APES
-                </span>
-                <span
-                  className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-                >
-                  {" "}
-                  or more will have a higher chance of gaining access to Early
-                  Access.
-                  <br />
-                  2. Wallets with{" "}
-                </span>
-                <span
-                  className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
-                >
-                  1,000,000 $APES
-                </span>
-                <span
-                  className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-                >
-                  {" "}
-                  or more are guaranteed to receive Early Access.
-                </span>
-              </div>
-            </div>
-            <div
-              className={` text-white/80 text-base font-normal ${inter.className} leading-normal`}
+        <div className="flex-col justify-start items-start gap-6 flex">
+          <div
+            className={` text-white text-lg font-medium ${poppins.className}`}
+          >
+            Rules
+          </div>
+
+          <div
+            className={` text-white/80 text-base font-normal leading-normal ${inter.className}`}
+          >
+            Nominees for Early Access participation will be selected randomly.
+            The number of spots is limited.
+          </div>
+
+          <div
+            className={` text-white text-lg font-medium ${poppins.className}`}
+          >
+            Get a $APES Multiplier!
+          </div>
+
+          <div className="">
+            <span
+              className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
             >
-              Follow our X account to find out if your wallet has been granted
-              Early Access.
-            </div>
+              1. Wallets with{" "}
+            </span>
+            <span
+              className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
+            >
+              100,000 $APES
+            </span>
+            <span
+              className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
+            >
+              {" "}
+              or more will have a higher chance of gaining access to Early
+              Access.
+              <br />
+              2. Wallets with{" "}
+            </span>
+            <span
+              className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
+            >
+              1,000,000 $APES
+            </span>
+            <span
+              className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
+            >
+              {" "}
+              or more are guaranteed to receive Early Access.
+            </span>
+          </div>
+
+          <div
+            className={` text-white/80 text-base font-normal ${inter.className} leading-normal`}
+          >
+            Follow our X account to find out if your wallet has been granted
+            Early Access.
           </div>
         </div>
       </div>
