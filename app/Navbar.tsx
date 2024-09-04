@@ -13,10 +13,10 @@ export const Navbar = () => {
           <Image src={Logo} alt={"Logo"} />
         </a>
         <div className="flex">
-          <Link href={""}>
+          <Link href={"https://x.com/apescreener"}>
             <Image src={IconX} alt={"IconX"} />
           </Link>
-          <Link href={""}>
+          <Link href={"https://t.me/apescreener"}>
             <Image src={IconTelegram} alt={"IconTelegram"} />
           </Link>
         </div>
