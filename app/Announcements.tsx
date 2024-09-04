@@ -1,7 +1,7 @@
 import React from 'react';
 import { inter, poppins } from "./fonts";
 import { AnnouncementCard } from './components/AnnouncementCard';
-import bgCardEarlyAccess from "../public/bg-card-early-access.png"
+import bgCardEarlyAccess from "../public/image-card-active.png"
 
 
 export const Announcements: React.FC = () => {

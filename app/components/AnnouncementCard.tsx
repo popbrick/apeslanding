@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { inter, poppins } from "../fonts";
-import defaultImage from "../../public/bg_announcement.png";
+import defaultImage from "../../public/image-card-disabled.png";
 
 interface AnnouncementProps {
   step: number;
