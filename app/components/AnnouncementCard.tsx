@@ -8,6 +8,7 @@ interface AnnouncementProps {
   backgroundImage: string;
   label: string;
   revealed: boolean;
+  onClick: () => void; 
 }
 
 export const AnnouncementCard: React.FC<AnnouncementProps> = ({
@@ -15,10 +16,12 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = ({
   backgroundImage,
   label,
   revealed,
+  onClick
 }) => {
   return (
     <div
-      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg"
+      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg cursor-pointer"
+      onClick={onClick}
       style={{
         backgroundImage: `url(${
           revealed ? backgroundImage : defaultImage.src
