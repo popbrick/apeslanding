@@ -15,18 +15,28 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
-      <div className="relative w-full max-w-[600px] h-full max-h-[calc(100%-32px)] md:h-auto md:max-h-auto p-4 md:p-12 bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-center items-center gap-8 overflow-y-auto">
+      <div className="relative px-6 md:px-12 py-12 w-full max-w-[600px] h-full max-h-[calc(100%-32px)] md:h-auto md:max-h-auto bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-start items-center gap-8 overflow-y-auto">
         <Image
           src={IconBtnClose}
           alt="IconBtnClose"
-          className="absolute top-4 right-4"
+          className="absolute top-4 right-4 cursor-pointer"
           onClick={onClose}
         />
         <div className="flex-col justify-center items-center gap-2 flex">
           <div
-            className={`text-center text-white text-[32px] font-semibold ${poppins.className}`}
+            className={`text-center text-white font-semibold ${poppins.className}`}
           >
-            Welcome to Early Access
+            {/* Text for larger screens */}
+            <div className="hidden md:block text-[32px]">
+              Welcome to Early Access
+            </div>
+
+            {/* Text for smaller screens */}
+            <div className="block md:hidden text-2xl">
+              Welcome to Early
+              <br />
+              Access
+            </div>
           </div>
           <div
             className={`text-center text-white/80 text-base font-normal leading-normal ${inter.className}`}
@@ -40,7 +50,6 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             placeholder="Wallet address"
             className={`h-14 px-6 py-4 bg-white/10 rounded-[500px] border border-white/20 text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${inter.className}`}
           />
-
           <button className="w-full md:w-1/3 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex">
             <span
               className={`text-black text-base font-semibold ${inter.className} leading-snug`}
@@ -52,25 +61,22 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
         <div className="h-[1px] w-full bg-white/10"></div>
         <div className="flex-col justify-start items-start gap-6 flex">
           <div
-            className={` text-white text-lg font-medium ${poppins.className}`}
+            className={`text-white text-lg font-medium ${poppins.className}`}
           >
             Rules
           </div>
-
           <div
-            className={` text-white/80 text-base font-normal leading-normal ${inter.className}`}
+            className={`text-white/80 text-base font-normal leading-normal ${inter.className}`}
           >
             Nominees for Early Access participation will be selected randomly.
             The number of spots is limited.
           </div>
-
           <div
-            className={` text-white text-lg font-medium ${poppins.className}`}
+            className={`text-white text-lg font-medium ${poppins.className}`}
           >
             Get a $APES Multiplier!
           </div>
-
-          <div className="">
+          <div>
             <span
               className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
             >
@@ -102,9 +108,8 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
               or more are guaranteed to receive Early Access.
             </span>
           </div>
-
           <div
-            className={` text-white/80 text-base font-normal ${inter.className} leading-normal`}
+            className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
           >
             Follow our X account to find out if your wallet has been granted
             Early Access.
