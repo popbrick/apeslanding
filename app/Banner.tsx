@@ -6,7 +6,7 @@ import { GetEarlyAccessModal } from "./components/GetEarlyAccessModal";
 import { inter, poppins } from "./fonts";
 
 export const Banner = () => {
-  const targetDate = "2024-09-31T23:59:59";
+  const targetDate = "2024-09-24T19:00:00"; //24th September 19.00 UTC
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
