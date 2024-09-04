@@ -26,14 +26,16 @@ export const Banner = () => {
           Coming Soon
         </div>
         <Countdown targetDate={targetDate} />
-        <div className="h-14 px-8 py-2.5 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex">
-          <div
+        <button
+          className="h-14 px-8 py-2.5 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] flex justify-center items-center gap-2.5 inline-flex"
+          onClick={handleOpenModal}
+        >
+          <span
             className={`${inter.className} text-black text-lg font-semibold leading-[25.20px]`}
-            onClick={handleOpenModal}
           >
             Get early access
-          </div>
-        </div>
+          </span>
+        </button>
       </div>
       <GetEarlyAccessModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </section>
