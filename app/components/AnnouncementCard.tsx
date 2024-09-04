@@ -20,7 +20,7 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = ({
 }) => {
   return (
     <div
-      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg cursor-pointer overflow-hidden"
+      className="relative h-[472px] bg-cover bg-center px-8 py-10 rounded-3xl border border-gray-300 shadow-lg cursor-pointer overflow-hidden hover:shadow-slate-300"
       onClick={onClick}
       style={{
         backgroundImage: `url(${
