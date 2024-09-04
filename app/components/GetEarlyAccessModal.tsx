@@ -13,9 +13,9 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  if (!isOpen) return null;
-
   const [walletAddress, setWalletAddress] = useState("");
+
+  if (!isOpen) return null;
 
   const handleInputChange = (event: any) => {
     setWalletAddress(event.target.value);
@@ -34,7 +34,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           },
         }
       );
-      setWalletAddress("")
+      setWalletAddress("");
       console.log(response.data); // TODO For development purposes
     } catch (error) {
       console.error(error);
