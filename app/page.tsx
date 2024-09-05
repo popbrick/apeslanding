@@ -6,7 +6,7 @@ import { Announcements } from "./Announcements";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-gradient-to-t from-[#181a1e] to-[#181a1e] overflow-hidden">
+    <main className="relative min-h-screen bg-gradient-to-t from-[#181a1e] to-[#181a1e]">
       <Image
         src={BackgroundImage}
         alt="BackgroundImage"
