@@ -1,7 +1,7 @@
 import Image from "next/image";
 import IconBtnClose from "../../public/icon-box-close.svg";
 import { poppins, inter } from "../fonts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
@@ -23,13 +23,27 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   const [walletAddress, setWalletAddress] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Reset the states when the modal is closed
+  useEffect(() => {
+    if (!isOpen) {
+      setWalletAddress("");
+      setIsValid(true);
+      setIsFocused(false);
+      setAlreadyRegistered(false);
+      setIsSuccess(false);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   const handleInputChange = (event: any) => {
     setWalletAddress(event.target.value);
-    setIsValid(true); // Reset validation state when typing
+    // Reset validation state when typing
+    setIsValid(true);
+    setAlreadyRegistered(false);
   };
 
   const handleSubmit = async () => {
@@ -50,13 +64,18 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
         );
         setIsSuccess(true);
         setWalletAddress("");
-        console.log(response.data); // TODO For development purposes
       } else {
         // Mark the input as invalid
         setIsValid(false);
       }
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error)) {
+        if (error.status == 400) {
+          setAlreadyRegistered(true);
+        }
+      } else {
+        console.error(error);
+      }
     }
   };
 
@@ -99,6 +118,15 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-start items-start gap-3 w-full">
+          {/* Conditionally render the error message */}
+          {!isValid || alreadyRegistered ? (
+            <div
+              className={`text-red-500 text-sm font-normal ${inter.className} leading-[21px]`}
+            >
+              {!isValid ? `Check Address` : `Already registered`}
+            </div>
+          ) : null}
+
           <input
             type="text"
             placeholder="Wallet address"
@@ -107,11 +135,11 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             onFocus={handleFocus}
             onBlur={handleBlur}
             className={`h-14 px-6 py-4 rounded-[500px] border text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${
-              isValid
-                ? isFocused
-                  ? "border-white bg-white/10"
-                  : "border-white/20 bg-white/10"
-                : "border-red-500 bg-black"
+              !isValid || alreadyRegistered
+                ? "border-red-500 bg-transparent"
+                : isFocused
+                ? "border-white bg-white/10"
+                : "border-white/20 bg-white/10"
             }`}
           />
 
@@ -132,6 +160,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             </span>
           </button>
         </div>
+
         <div className="h-[1px] w-full bg-white/10"></div>
         <div className="flex-col justify-start items-start gap-6 flex">
           <div
