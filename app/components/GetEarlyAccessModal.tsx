@@ -3,6 +3,9 @@ import IconBtnClose from "../../public/icon-box-close.svg";
 import { poppins, inter } from "../fonts";
 import { useState } from "react";
 import axios from "axios";
+import Link from "next/link";
+
+import IconX from "../../public/icon_x.svg";
 
 interface GetEarlyAccessModalProps {
   isOpen: boolean;
@@ -144,8 +147,14 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           <div
             className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
           >
-            Follow our X account to find out if your wallet has been granted
-            Early Access.
+            Follow our{" "}
+            <Link
+              href="https://x.com/apescreener"
+              className="inline-flex items-center"
+            >
+              <Image src={IconX} alt={"IconX"} width={15} height={15} />
+            </Link>{" "}
+            account to find out if your wallet has been granted Early Access.
           </div>
         </div>
       </div>
