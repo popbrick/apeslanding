@@ -41,5 +41,3 @@ export const Banner = () => {
     </section>
   );
 };
-
-//text-center text-white text-[38px] font-semibold font-['Poppins'] leading-[38px]
