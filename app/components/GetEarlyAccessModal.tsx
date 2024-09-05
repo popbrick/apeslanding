@@ -12,36 +12,57 @@ interface GetEarlyAccessModalProps {
   onClose: () => void;
 }
 
+const isValidEthereumAddress = (address: string) =>
+  /^0x[a-fA-F0-9]{40}$/.test(address);
+
 export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const [walletAddress, setWalletAddress] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const [isValid, setIsValid] = useState(true);
 
   if (!isOpen) return null;
 
   const handleInputChange = (event: any) => {
     setWalletAddress(event.target.value);
+    setIsValid(true); // Reset validation state when typing
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post(
-        "https://vigilante.apescreener.xyz/api/register",
-        {
-          walletAddress,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
+      // Validate the Ethereum wallet address
+      if (isValidEthereumAddress(walletAddress)) {
+        console.log("Valid Wallet Address:", walletAddress);
+        const response = await axios.post(
+          "https://vigilante.apescreener.xyz/api/register",
+          {
+            walletAddress,
           },
-        }
-      );
-      setWalletAddress("");
-      console.log(response.data); // TODO For development purposes
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setWalletAddress("");
+        console.log(response.data); // TODO For development purposes
+      } else {
+        // Mark the input as invalid
+        setIsValid(false);
+      }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   return (
@@ -81,14 +102,29 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             placeholder="Wallet address"
             value={walletAddress}
             onChange={handleInputChange}
-            className={`h-14 px-6 py-4 bg-white/10 rounded-[500px] border border-white/20 text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${inter.className}`}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            className={`h-14 px-6 py-4 rounded-[500px] border text-white/50 text-base font-normal placeholder-white/50 w-full md:w-2/3 ${
+              isValid
+                ? isFocused
+                  ? "border-white bg-white/10"
+                  : "border-white/20 bg-white/10"
+                : "border-red-500 bg-black"
+            }`}
           />
+
           <button
             onClick={handleSubmit}
-            className="w-full md:w-1/3 h-14 p-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center gap-2.5 inline-flex"
+            className={`w-full md:w-1/3 h-14 p-4 rounded-[500px] justify-center items-center gap-2.5 inline-flex transition-transform duration-150 ease-in-out transform active:scale-95 ${
+              isValid
+                ? "bg-gradient-to-r from-[#00fe93] to-[#15a0a0] hover:from-[#00d47b] hover:to-[#138a8a]"
+                : "bg-white/10"
+            }`}
           >
             <span
-              className={`text-black text-base font-semibold ${inter.className} leading-snug`}
+              className={`${
+                isValid ? "text-black" : "text-white/50"
+              } text-base font-semibold leading-snug`}
             >
               Apply
             </span>
