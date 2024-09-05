@@ -31,7 +31,7 @@ const DigitBox: React.FC<DigitBoxProps> = ({ num }) => {
       }`}
     >
       <div
-        className={`${poppins.className} text-white text-[28px] md:text-[40px] font-normal w-5 md:w-6 h-[42px] items-center flex`}
+        className={`${poppins.className} text-white text-[28px] md:text-[40px] font-normal w-5 md:w-6 h-[42px] items-center flex justify-center`}
       >
         {num}
       </div>
