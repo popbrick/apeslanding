@@ -29,10 +29,16 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = ({
       }}
     >
       <div
-        className={`absolute inset-0 bg-black opacity-50 ${
-          revealed ? `visible` : `hidden`
-        }`}
+        className={`absolute inset-0`}
+        style={{
+          background: `${
+            revealed
+              ? "linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 100%)"
+              : "linear-gradient(to bottom, rgba(32, 48, 46, 0) 25%, rgba(32, 48, 46, 1) 100%)"
+          }`,
+        }}
       />
+
       <div className="relative w-14 h-14 bg-white/20 rounded-full border-4 border-white/50 backdrop-blur-[50px] flex items-center justify-center">
         <div
           className={`text-center text-white text-[28px] font-bold ${poppins.className}`}
