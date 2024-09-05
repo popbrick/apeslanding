@@ -68,10 +68,10 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
     setIsFocused(false);
   };
 
-  const handleClose = ()=> {
+  const handleClose = () => {
     setIsSuccess(false);
     onClose();
-  }
+  };
 
   const renderFormContent = () => {
     return (
@@ -236,7 +236,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           isSuccess
             ? `max-w-md`
             : `max-w-[600px] h-full max-h-[calc(100%-32px)]`
-        } md:h-auto md:max-h-auto bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-start items-center gap-8 overflow-y-auto`}
+        } md:h-auto md:max-h-auto bg-[#37383c] rounded-[20px] border-[3px] border-[rgba(255,255,255,0.2)] bg-[radial-gradient(104.87%_142.92%_at_0%_-2.1%,#37383D_0%,#25262A_100%),#181A1E] flex flex-col justify-start items-center gap-8 overflow-y-auto`}
       >
         <Image
           src={IconBtnClose}
