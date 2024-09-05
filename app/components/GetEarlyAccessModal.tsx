@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import IconX from "../../public/icon_x.svg";
+import ImgSuccess from "../../public/image_success.svg";
 
 interface GetEarlyAccessModalProps {
   isOpen: boolean;
@@ -22,6 +23,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   const [walletAddress, setWalletAddress] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   if (!isOpen) return null;
 
@@ -46,6 +48,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             },
           }
         );
+        setIsSuccess(true);
         setWalletAddress("");
         console.log(response.data); // TODO For development purposes
       } else {
@@ -65,15 +68,14 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
     setIsFocused(false);
   };
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
-      <div className="relative px-6 md:px-12 py-12 w-full max-w-[600px] h-full max-h-[calc(100%-32px)] md:h-auto md:max-h-auto bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-start items-center gap-8 overflow-y-auto">
-        <Image
-          src={IconBtnClose}
-          alt="IconBtnClose"
-          className="absolute top-4 right-4 cursor-pointer"
-          onClick={onClose}
-        />
+  const handleClose = ()=> {
+    setIsSuccess(false);
+    onClose();
+  }
+
+  const renderFormContent = () => {
+    return (
+      <>
         <div className="flex-col justify-center items-center gap-2 flex">
           <div
             className={`text-center text-white font-semibold ${poppins.className}`}
@@ -193,6 +195,56 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             account to find out if your wallet has been granted Early Access.
           </div>
         </div>
+      </>
+    );
+  };
+
+  const renderSuccessContent = () => {
+    return (
+      <>
+        <Image src={ImgSuccess} alt="Image Success" />
+        <div className="flex-col justify-start items-center gap-2 flex mb-5">
+          <div
+            className={`text-center text-white text-[32px] font-semibold ${poppins.className}`}
+          >
+            Congratulations!
+          </div>
+          <div
+            className={`text-center text-white/80 text-base font-normal ${inter.className} leading-normal`}
+          >
+            You have successfully submitted your wallet for Early Access.
+          </div>
+        </div>
+        <button
+          className="w-full px-4 py-4 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] rounded-[500px] justify-center items-center inline-flex transition-transform duration-150 ease-in-out transform active:scale-95 hover:from-[#00d47b] hover:to-[#138a8a]"
+          onClick={handleClose}
+        >
+          <span
+            className={`${inter.className} text-black text-base font-semibold leading-snug`}
+          >
+            Close
+          </span>
+        </button>
+      </>
+    );
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm p-4">
+      <div
+        className={`relative px-6 md:px-12 py-12 w-full ${
+          isSuccess
+            ? `max-w-md`
+            : `max-w-[600px] h-full max-h-[calc(100%-32px)]`
+        } md:h-auto md:max-h-auto bg-[#37383c] rounded-[40px] border-4 border-white flex flex-col justify-start items-center gap-8 overflow-y-auto`}
+      >
+        <Image
+          src={IconBtnClose}
+          alt="IconBtnClose"
+          className="absolute top-4 right-4 cursor-pointer"
+          onClick={handleClose}
+        />
+        {!isSuccess ? renderFormContent() : renderSuccessContent()}
       </div>
     </div>
   );
