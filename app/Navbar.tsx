@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Logo from "../public/logo.svg";
-import IconX from "../public/icon_x.png";
-import IconTelegram from "../public/icon_telegram.png";
+import IconX from "../public/icon_x.svg";
+import IconTelegram from "../public/icon_tg.svg";
 
 export const Navbar = () => {
   return (
@@ -12,12 +12,16 @@ export const Navbar = () => {
         <a href="/landingPage">
           <Image src={Logo} alt={"Logo"} />
         </a>
-        <div className="flex">
+        <div className="flex gap-2">
           <Link href={"https://x.com/apescreener"}>
-            <Image src={IconX} alt={"IconX"} />
+            <div className="w-14 h-14 flex items-center justify-center">
+              <Image src={IconX} alt={"IconX"} />
+            </div>
           </Link>
           <Link href={"https://t.me/apescreener"}>
-            <Image src={IconTelegram} alt={"IconTelegram"} />
+            <div className="w-14 h-14 flex items-center justify-center">
+              <Image src={IconTelegram} alt={"IconTelegram"} />
+            </div>
           </Link>
         </div>
       </div>
