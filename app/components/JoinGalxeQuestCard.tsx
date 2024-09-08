@@ -28,7 +28,7 @@ const JoinGalxeQuestCardContent = () => {
         Raffle
       </div>
       <div
-        className={`text-[#ff0080] text-xl md:text-2xl font-light ${poppins.className} leading-normal`}
+        className={`w-fit bg-gradient-to-r from-[#FF0080] via-[#FF8C00] to-[#8FFF00] bg-clip-text text-transparent text-xl md:text-2xl font-light ${poppins.className} leading-normal`}
       >
         20 winners
       </div>
