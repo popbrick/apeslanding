@@ -4,7 +4,9 @@ import React, { useState } from "react";
 import { inter, poppins } from "./fonts";
 import { AnnouncementCard } from "./components/AnnouncementCard";
 import bgCardEarlyAccess from "../public/image-card-active.png";
+import bgCardGalxeQuest from "../public/bg-card-galxe-quest.png"
 import { GetEarlyAccessModal } from "./components/GetEarlyAccessModal";
+import { JoinGalxeQuestCard } from "./components/JoinGalxeQuestCard";
 
 export const Announcements: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,11 +34,11 @@ export const Announcements: React.FC = () => {
             revealed={true}
             onClick={handleOpenModal}
           />
-          <AnnouncementCard
+          <JoinGalxeQuestCard
             step={2}
-            backgroundImage={""}
-            label={"To be revealed"}
-            revealed={false}
+            backgroundImage={bgCardGalxeQuest.src}
+            label={"Join Galxe Quest"}
+            revealed={true}
             onClick={() => {}}
           />
           <AnnouncementCard
