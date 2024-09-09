@@ -8,14 +8,13 @@ import Link from "next/link";
 import IconX from "../../public/icon_x.svg";
 import ImgSuccess from "../../public/image_success.svg";
 
+const isValidEthereumAddress = (address: string) =>
+  /^0x[a-fA-F0-9]{40}$/.test(address);
+
 interface GetEarlyAccessModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-const isValidEthereumAddress = (address: string) =>
-  /^0x[a-fA-F0-9]{40}$/.test(address);
-
 export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   isOpen,
   onClose,
