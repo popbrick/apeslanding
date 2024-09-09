@@ -1,4 +1,5 @@
 import { GetEarlyAccessModal } from "./GetEarlyAccessModal";
+import { JoinGalxeQuestModal } from "./JoinGalxeQuestModal";
 
 export enum PopUpModalType {
   EARLY_ACCESS,
@@ -22,7 +23,7 @@ export const PopUpModal: React.FC<PopUpModalProps> = ({
       case PopUpModalType.EARLY_ACCESS:
         return <GetEarlyAccessModal isOpen={isOpen} onClose={onClose} />;
       case PopUpModalType.GALXE_QUEST:
-        break;
+        return <JoinGalxeQuestModal onClose={onClose}/>;
     }
   };
   return render();
