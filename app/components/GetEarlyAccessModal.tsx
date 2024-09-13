@@ -1,3 +1,6 @@
+"use client";
+import { useWeb3Modal } from "@web3modal/wagmi/react";
+
 import Image from "next/image";
 import IconBtnClose from "../../public/icon-box-close.svg";
 import { poppins, inter } from "../fonts";
@@ -19,6 +22,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   isOpen,
   onClose,
 }) => {
+  const { open } = useWeb3Modal();
   const [walletAddress, setWalletAddress] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isValid, setIsValid] = useState(true);
@@ -116,8 +120,8 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             To participate, please provide your wallet address here:
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-start items-start gap-3 w-full">
-          {/* Conditionally render the error message */}
+        {/* <div className="flex flex-col md:flex-row justify-start items-start gap-3 w-full">
+          Conditionally render the error message
           {!isValid || alreadyRegistered ? (
             <div
               className={`text-red-500 text-sm font-normal ${inter.className} leading-[21px]`}
@@ -158,8 +162,17 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
               Apply
             </span>
           </button>
+        </div> */}
+        <div>
+          <button
+            onClick={() => open()}
+            className={`w-full h-14 p-4 rounded-[500px] justify-center items-center gap-2.5 inline-flex transition-transform duration-150 ease-in-out transform active:scale-95 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] hover:from-[#00d47b] hover:to-[#138a8a]`}
+          >
+            <span className={`text-black text-base font-semibold leading-snug`}>
+              Check Your Eligibility
+            </span>
+          </button>
         </div>
-
         <div className="h-[1px] w-full bg-white/10"></div>
         <div className="flex-col justify-start items-start gap-6 flex">
           <div
