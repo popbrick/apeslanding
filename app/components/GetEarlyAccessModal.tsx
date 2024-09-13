@@ -10,6 +10,8 @@ import Link from "next/link";
 
 import IconX from "../../public/icon_x.svg";
 import ImgSuccess from "../../public/image_success.svg";
+import { useAccount } from "wagmi";
+import CustomButton from "./CustomButton";
 
 const isValidEthereumAddress = (address: string) =>
   /^0x[a-fA-F0-9]{40}$/.test(address);
@@ -23,29 +25,69 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   onClose,
 }) => {
   const { open } = useWeb3Modal();
+  const { address, isConnecting, isDisconnected } = useAccount();
   const [walletAddress, setWalletAddress] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const [isValid, setIsValid] = useState(true);
+  const [isEnabled, setIsEnabled] = useState(true);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const [isWhitelisted, setIsWhitelisted] = useState(false);
 
   // Reset the states when the modal is closed
   useEffect(() => {
     if (!isOpen) {
       setWalletAddress("");
-      setIsValid(true);
+      setIsEnabled(true);
       setIsFocused(false);
       setAlreadyRegistered(false);
       setIsSuccess(false);
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (address) {
+      console.log("address: ", address);
+      setIsWalletConnected(true);
+      const lowercaseAddress = address.toLowerCase();
+      console.log("lowercaseAddress: ", lowercaseAddress);
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "https://vigilante.apescreener.xyz/api/access",
+            {
+              params: { walletAddress: lowercaseAddress },
+            }
+          );
+
+          // Handle successful response
+          console.log("API response:", response.data);
+          setIsWhitelisted(true);
+        } catch (error) {
+          if (axios.isAxiosError(error)) {
+            if (error.status == 400) {
+              setIsWhitelisted(true);
+            }
+          } else {
+            console.error("Error fetching data:", error);
+          }
+        }
+      };
+
+      fetchData();
+      setIsEnabled(false);
+    }else {
+      setIsWalletConnected(false);
+      setIsEnabled(true);
+    }
+  }, [address, isDisconnected]);
+
   if (!isOpen) return null;
 
   const handleInputChange = (event: any) => {
     setWalletAddress(event.target.value);
     // Reset validation state when typing
-    setIsValid(true);
+    setIsEnabled(true);
     setAlreadyRegistered(false);
   };
 
@@ -69,12 +111,12 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
         setWalletAddress("");
       } else {
         // Mark the input as invalid
-        setIsValid(false);
+        setIsEnabled(false);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.status == 400) {
-          setAlreadyRegistered(true);
+          setAlreadyRegistered(false);
         }
       } else {
         console.error(error);
@@ -164,78 +206,103 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           </button>
         </div> */}
         <div>
-          <button
-            onClick={() => open()}
-            className={`w-full h-14 p-4 rounded-[500px] justify-center items-center gap-2.5 inline-flex transition-transform duration-150 ease-in-out transform active:scale-95 bg-gradient-to-r from-[#00fe93] to-[#15a0a0] hover:from-[#00d47b] hover:to-[#138a8a]`}
-          >
-            <span className={`text-black text-base font-semibold leading-snug`}>
-              Check Your Eligibility
-            </span>
-          </button>
+          <CustomButton
+            label={"Check Your Eligibility"}
+            onClick={() => {
+              open();
+            }}
+            isEnabled={isEnabled}
+          />
         </div>
+
         <div className="h-[1px] w-full bg-white/10"></div>
-        <div className="flex-col justify-start items-start gap-6 flex">
-          <div
-            className={`text-white text-lg font-medium ${poppins.className}`}
-          >
-            Rules
-          </div>
-          <div
-            className={`text-white/80 text-base font-normal leading-normal ${inter.className}`}
-          >
-            Nominees for Early Access participation will be selected randomly.
-            The number of spots is limited.
-          </div>
-          <div
-            className={`text-white text-lg font-medium ${poppins.className}`}
-          >
-            Get a $APES Multiplier!
-          </div>
-          <div>
-            <span
+        {isWalletConnected ? (
+          <>
+            {isWhitelisted ? (
+              <div className="flex-col justify-start items-start gap-6 flex">
+                <CustomButton
+                  label={"Early Access Group"}
+                  onClick={function (): void {}}
+                  isEnabled={true}
+                />
+                <CustomButton
+                  label={"AppScreener"}
+                  onClick={function (): void {}}
+                  isEnabled={true}
+                />
+              </div>
+            ) : (
+              <div
+                className={`text-white text-lg font-medium ${poppins.className}`}
+              >
+                Sorry! You are not whitelisted
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="flex-col justify-start items-start gap-6 flex">
+            <div
+              className={`text-white text-lg font-medium ${poppins.className}`}
+            >
+              Rules
+            </div>
+            <div
+              className={`text-white/80 text-base font-normal leading-normal ${inter.className}`}
+            >
+              Nominees for Early Access participation will be selected randomly.
+              The number of spots is limited.
+            </div>
+            <div
+              className={`text-white text-lg font-medium ${poppins.className}`}
+            >
+              Get a $APES Multiplier!
+            </div>
+            <div>
+              <span
+                className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
+              >
+                1. Wallets with{" "}
+              </span>
+              <span
+                className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
+              >
+                100,000 $APES
+              </span>
+              <span
+                className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
+              >
+                {" "}
+                or more will have a higher chance of gaining access to Early
+                Access.
+                <br />
+                2. Wallets with{" "}
+              </span>
+              <span
+                className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
+              >
+                1,000,000 $APES
+              </span>
+              <span
+                className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
+              >
+                {" "}
+                or more are guaranteed to receive Early Access.
+              </span>
+            </div>
+            <div
               className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
             >
-              1. Wallets with{" "}
-            </span>
-            <span
-              className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
-            >
-              100,000 $APES
-            </span>
-            <span
-              className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-            >
-              {" "}
-              or more will have a higher chance of gaining access to Early
-              Access.
-              <br />
-              2. Wallets with{" "}
-            </span>
-            <span
-              className={`text-emerald-400 text-base font-semibold ${inter.className} leading-normal`}
-            >
-              1,000,000 $APES
-            </span>
-            <span
-              className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-            >
-              {" "}
-              or more are guaranteed to receive Early Access.
-            </span>
+              Follow our{" "}
+              <Link
+                href="https://x.com/apescreener"
+                className="inline-flex items-center"
+              >
+                <Image src={IconX} alt={"IconX"} width={15} height={15} />
+              </Link>{" "}
+              account to find out if your wallet has been granted Early Access.
+            </div>
           </div>
-          <div
-            className={`text-white/80 text-base font-normal ${inter.className} leading-normal`}
-          >
-            Follow our{" "}
-            <Link
-              href="https://x.com/apescreener"
-              className="inline-flex items-center"
-            >
-              <Image src={IconX} alt={"IconX"} width={15} height={15} />
-            </Link>{" "}
-            account to find out if your wallet has been granted Early Access.
-          </div>
-        </div>
+        )}
       </>
     );
   };
