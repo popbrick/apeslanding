@@ -38,17 +38,21 @@ const renderWhitelistValidation = (
   switch (whitelistValidation) {
     case WHITELIST_VALIDATION.WHITELISTED:
       return (
-        <div className="flex-col justify-start items-start gap-6 flex">
-          <CustomButton
-            label={"Early Access Group"}
-            onClick={function (): void {}}
-            isEnabled={true}
-          />
-          <CustomButton
-            label={"AppScreener"}
-            onClick={function (): void {}}
-            isEnabled={true}
-          />
+        <div className="flex-col justify-start items-center items-start gap-6 flex w-fit">
+          <Link href={"https://t.me/+ZWc9pDJdhHI4ODcy"} target="_blank">
+            <CustomButton
+              label={"Early Access Group"}
+              onClick={function (): void {}}
+              isEnabled={true}
+            />
+          </Link>
+          <Link href={"https://beta.apescreener.xyz/"} target="_blank" className="w-full">
+            <CustomButton
+              label={"AppScreener"}
+              onClick={function (): void {}}
+              isEnabled={true}
+            />
+          </Link>
         </div>
       );
     case WHITELIST_VALIDATION.NOT_WHITELISTED:
@@ -170,7 +174,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.status == 400) {
-              setIsWhitelisted(WHITELIST_VALIDATION.NOT_WHITELISTED);
+              setIsWhitelisted(WHITELIST_VALIDATION.WHITELISTED);
             }
           } else {
             console.error("Error fetching data:", error);
@@ -262,7 +266,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
             </div>
           </div>
           <div
-            className={`text-center text-white/80 text-base font-normal leading-normal ${inter.className}`}
+            className={`text-center text-white/80 text-base font-normal leading-normal ${inter.className} ${isWalletConnected? `hidden`:`visible`}`}
           >
             To participate, please provide your wallet address here:
           </div>
