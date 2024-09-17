@@ -23,6 +23,14 @@ enum WHITELIST_VALIDATION {
 const isValidEthereumAddress = (address: string) =>
   /^0x[a-fA-F0-9]{40}$/.test(address);
 
+interface ApiResponse {
+  url: string;
+  botlink: string;
+  invitelink: string;
+  command: string;
+  instructions: string;
+}
+
 interface GetEarlyAccessModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -35,7 +43,8 @@ const GreenSpinner = () => {
 };
 
 const renderWhitelistValidation = (
-  whitelistValidation: WHITELIST_VALIDATION
+  whitelistValidation: WHITELIST_VALIDATION,
+  inviteLink: string
 ) => {
   switch (whitelistValidation) {
     case WHITELIST_VALIDATION.WHITELISTED:
@@ -60,7 +69,7 @@ const renderWhitelistValidation = (
               or write suggestions.
             </div>
             <Link
-              href={"https://t.me/+ZWc9pDJdhHI4ODcy"}
+              href={inviteLink}
               target="_blank"
               className="w-full"
             >
@@ -177,7 +186,10 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
-  const [isWhitelisted, setIsWhitelisted] = useState(WHITELIST_VALIDATION.NONE);
+  const [userData, setUserData] = useState({
+    isWhitelisted: WHITELIST_VALIDATION.NONE, // Initial state
+    inviteLink: "",
+  });
 
   // Reset the states when the modal is closed
   useEffect(() => {
@@ -204,11 +216,18 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
           );
 
           // Handle successful response
-          setIsWhitelisted(WHITELIST_VALIDATION.WHITELISTED);
+          const responseData: ApiResponse = response.data;
+          setUserData({
+            isWhitelisted: WHITELIST_VALIDATION.WHITELISTED,
+            inviteLink: responseData.invitelink,
+          });
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.status == 400) {
-              setIsWhitelisted(WHITELIST_VALIDATION.NOT_WHITELISTED);
+              setUserData({
+                isWhitelisted: WHITELIST_VALIDATION.NOT_WHITELISTED,
+                inviteLink: "",
+              });
             }
           } else {
             console.error("Error fetching data:", error);
@@ -220,7 +239,10 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
       setIsEnabled(false);
     } else {
       setIsWalletConnected(false);
-      setIsWhitelisted(WHITELIST_VALIDATION.NONE);
+      setUserData({
+        isWhitelisted: WHITELIST_VALIDATION.NONE,
+        inviteLink: "",
+      });
       setIsEnabled(true);
     }
   }, [address, isDisconnected]);
@@ -361,7 +383,7 @@ export const GetEarlyAccessModal: React.FC<GetEarlyAccessModalProps> = ({
 
         <div className="h-[1px] w-full bg-white/10"></div>
         {isWalletConnected
-          ? renderWhitelistValidation(isWhitelisted)
+          ? renderWhitelistValidation(userData.isWhitelisted, userData.inviteLink)
           : renderRuleComponent()}
       </>
     );
