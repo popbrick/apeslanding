@@ -47,7 +47,7 @@ export const Banner = () => {
             <div
               className={`${poppins.className} text-center text-white text-[38px] md:text-[88px] font-semibold leading-[38px] md:leading-[88px]`}
             >
-              Coming Soon
+              September 24th
             </div>
             {/* <Countdown targetDate={targetDate} /> */}
           </>
