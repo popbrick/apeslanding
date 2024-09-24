@@ -49,7 +49,7 @@ export const Banner = () => {
             >
               Coming Soon
             </div>
-            <Countdown targetDate={targetDate} />
+            {/* <Countdown targetDate={targetDate} /> */}
           </>
         )}
 
